@@ -1,4 +1,6 @@
+# -*- coding: UTF-8 -*-
 import re
+import sys
 
 
 def base(array, data):
@@ -17,3 +19,19 @@ def base(array, data):
 def valor(data):
     preco = re.compile('([R$]+.[,.0-9]+.[,.0-9]{2,6})')
     return preco.findall(data)
+
+def formulario(data):
+    cor = {'prata', 'branca', 'preto', 'azul'}
+    comb = {'flex', 'alcool'}
+    dir = {'hidráulica'}
+    cambio = {}
+    ar={'arcondicionado'}
+    camb={'cambio'}
+
+
+    color = base(cor, data)
+    direcao=base(dir, data)
+    cambio=base(camb, data)
+    custo = valor(data)
+    form = 'cor: '+color+'\ndirecao:  '+direcao+'\ncambio: '+cambio+'\ncusto: '+str(custo)
+    return  form
