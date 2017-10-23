@@ -43,7 +43,7 @@ t9='flex, prata, vidro+trava+som'
 
 
 
-
+print("-----------------------")
 print formulario(t7)
 print("-----------------------")
 
