@@ -3,19 +3,6 @@ import re
 import sys
 
 
-def base(array, data):
-    contador = 0
-    for i in array:
-        cont = re.search(i, str(data))
-        if cont is not None:
-            contador = 1
-            type = i
-    if contador==0:
-        type='Null'
-        return type
-    else:
-        return type
-
 def regra_marca(data):
     array={'Ford','Fiat'}
     contador = 0
@@ -59,13 +46,13 @@ def regra_combustivel(data):
         return type
 
 def regra_direcao(data):
-    array = {'hidráulica'}
+    array = {'hidráulica','completo','competo'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
         if cont is not None:
             contador = 1
-            type = i
+            type = 'Hidráulica'
     if contador==0:
         type='Mecânica'
         return type
@@ -73,7 +60,7 @@ def regra_direcao(data):
         return type
 
 def regra_arcondicionado(data):
-    array = {'ar','arcondicionado'}
+    array = {'ar','arcondicionado','completo','competo'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -87,7 +74,7 @@ def regra_arcondicionado(data):
         return type
 
 def regra_cambio(data):
-    array = {'cambio'}
+    array = {'cambio','completo','competo'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))

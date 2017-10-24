@@ -5,7 +5,6 @@ import csv
 import sys
 import re
 import functions
-from functions import base
 from functions import form
 
 reload(sys)
@@ -17,7 +16,7 @@ pagina = anuncio.sheet_by_index(0)
 row_index = [(49,10)]
 
 for i,j in row_index:
-    for k in range(2,11):
+    for k in range(2,10):
         # print pagina.cell_value(rowx=int(i),colx=k)
         head = ''+pagina.cell_value(rowx=int(i),colx=k)
         # print head
