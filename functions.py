@@ -91,6 +91,8 @@ def regra_valor(data):
     preco = re.compile('([R$]+.[,.0-9]+.[,.0-9]{2,6})')
     valor = str(preco.findall(data))
     custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
+    if custo=='':
+        custo='Null'
     return custo
 
 
