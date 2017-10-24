@@ -20,8 +20,9 @@ def valor(data):
     preco = re.compile('([R$]+.[,.0-9]+.[,.0-9]{2,6})')
     return preco.findall(data)
 
+# ta feio para caralho ajuste isso meu filho. Ass seu eu do passado!
 def formulario(data):
-    cor = {'prata', 'branca', 'preto', 'azul'}
+    cor = {'prata', 'branca','branco' 'preto', 'azul'}
     comb = {'flex', 'alcool'}
     dir = {'hidráulica'}
     cambio = {}

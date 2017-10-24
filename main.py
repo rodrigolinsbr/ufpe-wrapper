@@ -40,11 +40,12 @@ t6='v6, mecanica completa, azul R$ 24.500,00'
 t7='flex, branca, mecam R$ 35.990,00'
 t8='spirit preto, competo R$ 19.500,00'
 t9='flex, prata, vidro+trava+som'
+t10='Vende-se Nissam Versa 4 portas branca arcondicionado airbag duplo - flex - direção hidráulica - trava eletrica, alarme freio abs R$30.000'
 
 
 
 print("-----------------------")
-print formulario(t6)
+print formulario(t10)
 print("-----------------------")
 
 # remail=re.compile('([_.0-9a-z-]+@[0-9a-z-]+.[a-z]{2,6})')
