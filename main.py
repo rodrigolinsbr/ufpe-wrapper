@@ -11,7 +11,7 @@ from functions import formulario
 reload(sys)
 #sys.setdefaultencoding('utf-8')
 
-anuncio = xlrd.open_workbook("data.xlsx")
+anuncio = xlrd.open_workbook("corpus.xlsx")
 pagina = anuncio.sheet_by_index(0)
 
 row_index = [(4,5)]
@@ -44,7 +44,7 @@ t9='flex, prata, vidro+trava+som'
 
 
 print("-----------------------")
-print formulario(t7)
+print formulario(t6)
 print("-----------------------")
 
 # remail=re.compile('([_.0-9a-z-]+@[0-9a-z-]+.[a-z]{2,6})')
