@@ -4,7 +4,7 @@ import sys
 
 
 def regra_marca(data):
-    array={'Ford','Fiat'}
+    array={'CORSA CLASSIC','CARAVAN','CELTA LIFE','CELTA SPIRIT','VERANEIO','BLAZER','AGILE'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -16,6 +16,22 @@ def regra_marca(data):
         return type
     else:
         return type
+
+
+def regra_modelo(data):
+    array={'CORSA CLASSIC','CARAVAN','CELTA LIFE','CELTA SPIRIT','VERANEIO','BLAZER','AGILE'}
+    contador = 0
+    for i in array:
+        cont = re.search(i, str(data))
+        if cont is not None:
+            contador = 1
+            type = i
+    if contador==0:
+        type='Null'
+        return type
+    else:
+        return type
+
 
 def regra_cor(data):
     array = {'prata', 'branca', 'branco' 'preto', 'azul'}
@@ -95,12 +111,19 @@ def regra_valor(data):
         custo='Null'
     return custo
 
+def regra_motor(data):
+    preco = re.compile('(\s+[0-9]+.+[0-9]{2,3})')
+    valor = str(preco.findall(data))
+    custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
+    if custo=='':
+        custo='Null'
+    return custo
 
 def form(data):
-    marca='Null'
+    marca=regra_marca(data)
     modelo='Null'
     preco=regra_valor(data)
-    motor='Null'
+    motor=regra_motor(data)
     ano='Null'
     km='Null'
     direcao=regra_direcao(data)
