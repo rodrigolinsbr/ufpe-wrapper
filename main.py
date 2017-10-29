@@ -22,23 +22,13 @@ for i, j in row_index_body:
         # print pagina.cell_value(rowx=int(i), colx=k)
         head = '' + pagina.cell_value(rowx=int(i), colx=k)+ ''+pagina.cell_value(rowx=int(i+1), colx=k)
 
-        # print head
+        print head
         print form(head)
 
 
 # arq = open('form.txt', 'w')
 # arq.write(head)
 # arq.close()
-
-
-row_index = [(49,10)]
-for i,j in row_index:
-    for k in range(2,10):
-        # print pagina.cell_value(rowx=int(i),colx=k)
-        head = ''+pagina.cell_value(rowx=int(i),colx=k)
-        # print head
-        # print form(head)
-        # print regra_combustivel(head)
 
 
 

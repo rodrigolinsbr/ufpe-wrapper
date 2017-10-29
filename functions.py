@@ -12,7 +12,7 @@ def regra_marca(data):
             contador = 1
             type = i
     if contador==0:
-        type='Null'
+        type=''
         return type
     else:
         return type
@@ -27,7 +27,7 @@ def regra_modelo(data):
             contador = 1
             type = i
     if contador==0:
-        type='Null'
+        type=''
         return type
     else:
         return type
@@ -42,7 +42,7 @@ def regra_cor(data):
             contador = 1
             type = i
     if contador==0:
-        type='Null'
+        type=''
         return type
     else:
         return type
@@ -108,23 +108,44 @@ def regra_valor(data):
     valor = str(preco.findall(data))
     custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
     if custo=='':
-        custo='Null'
+        custo=''
     return custo
 
 def regra_motor(data):
-    preco = re.compile('(\s+[0-9]+.+[0-9]{2,3})')
-    valor = str(preco.findall(data))
-    custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
-    if custo=='':
-        custo='Null'
-    return custo
+    # preco = re.compile('(\s+\d{1}[.]+\d{1}\s)')
+    array = {'1.0', '4.3', '1.4', '4.3'}
+    # array = {'prata', 'branca', 'branco' 'preto', 'azul'}
+    contador = 0
+    for i in array:
+        cont = re.search(i, str(data))
+        if cont is not None:
+            contador = 1
+            type = i
+    if contador==0:
+        type=''
+        return type
+    else:
+        return type
+
+
+def regra_ano(data):
+    expressao = re.compile('[" "](\d{1}\d{1})')
+    ano = str(expressao.findall(data))
+    ano = ano.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
+    if ano=='':
+        ano=''
+    return ano
+
+def regra_modelo(data):
+    marca =regra_marca(data)
+    return marca
 
 def form(data):
     marca=regra_marca(data)
-    modelo='Null'
+    modelo=regra_modelo(data)
     preco=regra_valor(data)
     motor=regra_motor(data)
-    ano='Null'
+    ano=regra_ano(data)
     km='Null'
     direcao=regra_direcao(data)
     combustivel=regra_combustivel(data)
