@@ -19,9 +19,10 @@ pagina = anuncio.sheet_by_index(0)
 row_index_body = [(48,10)]
 for i, j in row_index_body:
     for k in range(2, 10):
+
         # print pagina.cell_value(rowx=int(i), colx=k)
         head = '' + pagina.cell_value(rowx=int(i), colx=k)+ ''+pagina.cell_value(rowx=int(i+1), colx=k)
-
+        print  k-1
         print head
         print form(head)
 
