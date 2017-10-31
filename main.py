@@ -1,12 +1,11 @@
-# encoding: utf-8
-# encoding: iso-8859-1
-# encoding: win-1252
+
 
 import xlrd
 import csv
 import sys
 import re
 import functions
+from functions import removerAcentos
 from functions import form
 
 reload(sys)
@@ -22,8 +21,10 @@ for i, j in row_index_body:
 
         # print pagina.cell_value(rowx=int(i), colx=k)
         head = '' + pagina.cell_value(rowx=int(i), colx=k)+ ''+pagina.cell_value(rowx=int(i+1), colx=k)
-        print  k-1
-        print head
+        # print head
+        # head = removerAcentos(head)
+        # print  k-1
+        # print '\n'+head
         print form(head)
 
 

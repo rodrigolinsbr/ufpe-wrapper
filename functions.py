@@ -1,9 +1,10 @@
 # -*- coding: UTF-8 -*-
+import unicodedata
 import re
-import sys
 
 
-def regra_marca(data):
+
+def regraMarca(data):
     array = {'CORSA CLASSIC', 'CARAVAN', 'CELTA LIFE', 'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE'}
     contador = 0
     for i in array:
@@ -18,7 +19,7 @@ def regra_marca(data):
         return type
 
 
-def regra_modelo(data):
+def regraModelo(data):
     array = {'CORSA CLASSIC', 'CARAVAN', 'CELTA LIFE', 'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE'}
     contador = 0
     for i in array:
@@ -33,7 +34,7 @@ def regra_modelo(data):
         return type
 
 
-def regra_cor(data):
+def regraCor(data):
     array = {'prata', 'branca', 'branco', 'preto', 'preta', 'azul'}
     contador = 0
     for i in array:
@@ -48,7 +49,7 @@ def regra_cor(data):
         return type
 
 
-def regra_combustivel(data):
+def regraCombustivel(data):
     array = {'flex', 'alcool','gasolina'}
     contador = 0
     for i in array:
@@ -63,22 +64,31 @@ def regra_combustivel(data):
         return type
 
 
-def regra_direcao(data):
-    array = {'hidráulica', 'completo', 'competo'}
+def regraDirecao(data):
+    array = {'hidraulica', 'completo', 'competo','mecanica','mecam'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
-        if cont is not None:
+        if cont is not None and i=='hidraulica':
             contador = 1
             type = 'Hidráulica'
+        if cont is not None and i=='competo':
+            contador = 1
+            type = 'Hidráulica'
+        if cont is not None and i=='mecam':
+            contador = 1
+            type = 'Mecânica'
+        if cont is not None and i=='mecanica':
+            contador = 1
+            type = 'Mecânica'
     if contador == 0:
-        type = 'Mecânica'
+        type = ''
         return type
     else:
         return type
 
 
-def regra_arcondicionado(data):
+def regraArcondicionado(data):
     array = {' ar ', 'arcondicionado', 'completo', 'competo'}
     contador = 0
     for i in array:
@@ -87,14 +97,14 @@ def regra_arcondicionado(data):
             contador = 1
             type = 'Sim'
     if contador == 0:
-        type = 'Não'
+        type = ''
         return type
     else:
         return type
 
 
-def regra_cambio(data):
-    array = {'cambio', 'automático', 'automatico'}
+def regraCambio(data):
+    array = {'cambio', 'automatico'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -102,13 +112,13 @@ def regra_cambio(data):
             contador = 1
             type =i
     if contador == 0:
-        type = 'Manual'
+        type = ''
         return type
     else:
-        return type
+        return 'Manual'
 
 
-def regra_valor(data):
+def regraValor(data):
     preco = re.compile('([R$].[,.0-9]+.[,.0-9]{2,6})')
     valor = str(preco.findall(data))
     custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
@@ -117,7 +127,7 @@ def regra_valor(data):
     return custo
 
 
-def regra_motor(data):
+def regraMotor(data):
     # preco = re.compile('(\s+\d{1}[.]+\d{1}\s)')
     array = {'1.0', '4.3', '1.4', '4.3'}
     # array = {'prata', 'branca', 'branco' 'preto', 'azul'}
@@ -134,7 +144,7 @@ def regra_motor(data):
         return type
 
 
-def regra_ano(data):
+def regraAno(data):
     expressao = re.compile('[^R$]+[" "](\d{1}\d{1})')
     ano = str(expressao.findall(data))
     ano = ano.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
@@ -143,22 +153,22 @@ def regra_ano(data):
     return ano
 
 
-def regra_modelo(data):
-    marca = regra_marca(data)
-    array = {'CORSA CLASSIC', 'CARAVAN', 'CELTA LIFE', 'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE'}
-    if marca=='CORSA CLASSIC' or marca=='CARAVAN' or marca=='CELTA LIFE' or marca=='CELTA SPIRIT':
-        modelo='Chevrollet'
-    elif marca=='AGILE' or marca=='UNO':
-        modelo='Fiat'
-    elif marca=='BLAZER' or marca=='VERANEIO':
-        modelo='Ford'
+def regraModelo(data):
+    array = {'Chevrollet', 'Fiat', 'BMW','Ford'}
+    contador = 0
+    for i in array:
+        cont = re.search(i, str(data))
+        if cont is not None:
+            contador = 1
+            type = i
+    if contador == 0:
+        type = ''
+        return type
     else:
-        modelo=''
-
-    return modelo
+        return type
 
 
-def regra_opcionais(data):
+def regraOpcionais(data):
     array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag'}
     contador = 0
     for i in array:
@@ -172,51 +182,39 @@ def regra_opcionais(data):
     else:
         return opc
 
+def regraKm(data):
+    expressao = re.compile('(\d{1}\d{1})[" "][km]')
+    km = str(expressao.findall(data))
+    km = km.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
+    if km == '':
+        km = ''
+    return km
 
 def form(data):
-    marca = regra_marca(data)
-    modelo = regra_modelo(data)
-    preco = regra_valor(data)
-    motor = regra_motor(data)
-    ano = regra_ano(data)
-    km = ''
-    direcao = regra_direcao(data)
-    combustivel = regra_combustivel(data)
-    cambio = regra_cambio(data)
-    valor = regra_valor(data)
-    ar = regra_arcondicionado(data)
-    cor = regra_cor(data)
-    opcionais = regra_opcionais(data)
+    marca = regraMarca(data)
+    modelo = regraModelo(data)
+    preco = regraValor(data)
+    motor = regraMotor(data)
+    ano = regraAno(data)
+    km = regraKm(data)
+    direcao = regraDirecao(data)
+    combustivel = regraCombustivel(data)
+    cambio = regraCambio(data)
+    valor = regraValor(data)
+    ar = regraArcondicionado(data)
+    cor = regraCor(data)
+    opcionais = regraOpcionais(data)
 
     # return  valor
     return 'Marca: ' + marca + '\nModelo: '+modelo+'\nPreço: ' + preco + '\nMotor: ' + motor + '\nAno: ' + ano + '\nKm: ' + km + '\nCombustível: ' + combustivel + '\nCambio: ' + cambio + '\nDireçao: ' + direcao + '\nCor: ' + cor + '\nAr-cond: ' + ar + '\nOpcionais: ' + opcionais + '\n--------------'
 
 
-def formulario(data):
-    cor = {'prata', 'branca', 'branco' 'preto', 'azul'}
-    comb = {'flex', 'alcool'}
-    dir = {'hidráulica'}
-    cambio = {}
-    ar = {'arcondicionado', ' ar '}
-    camb = {'cambio'}
 
-    com = base(comb, data)
-    color = base(cor, data)
-    direcao = base(dir, data)
-    cambio = base(camb, data)
-    ar = base(ar, data)
+def removerAcentos(palavra):
 
-    if direcao == 'Null':
-        direcao = 'Mecanica'
-    if cambio == 'Null':
-        cambio = 'Normal'
-    if ar == 'Null':
-        ar = 'Não'
-    else:
-        ar = 'Sim'
-    if com == 'Null':
-        com = 'Gasolina'
-    custo = str(valor(data))
-    custo = custo.replace("'", "").replace('[', '').replace(']', '')
-    form = 'cor: ' + color + '\ndirecao:  ' + direcao + '\nArcond: ' + ar + '\nCombustível: ' + com + '\ncambio: ' + cambio + '\nValor: ' + custo
-    return form
+    # Unicode normalize transforma um caracter em seu equivalente em latin.
+    nfkd = unicodedata.normalize('NFKD', palavra)
+    palavraSemAcento = u"".join([c for c in nfkd if not unicodedata.combining(c)])
+
+    # Usa expressão regular para retornar a palavra apenas com números, letras e espaço
+    return re.sub('[^a-zA-Z0-9$., \\\]', '', palavraSemAcento)

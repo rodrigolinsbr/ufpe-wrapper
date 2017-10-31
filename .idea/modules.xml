@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../AM/AM-Project-I/.idea/AM-Project-I.iml" filepath="$PROJECT_DIR$/../../AM/AM-Project-I/.idea/AM-Project-I.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../AM/sklearn_naive_bayes/.idea/sklearn_naive_bayes.iml" filepath="$PROJECT_DIR$/../../AM/sklearn_naive_bayes/.idea/sklearn_naive_bayes.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/wrapper.iml" filepath="$PROJECT_DIR$/.idea/wrapper.iml" />
     </modules>
   </component>
