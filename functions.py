@@ -4,23 +4,13 @@ import re
 
 
 
-def regraMarca(data):
-    array = {'CORSA CLASSIC', 'CARAVAN', 'CELTA LIFE', 'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE'}
-    contador = 0
-    for i in array:
-        cont = re.search(i, str(data))
-        if cont is not None:
-            contador = 1
-            type = i
-    if contador == 0:
-        type = ''
-        return type
-    else:
-        return type
-
-
 def regraModelo(data):
-    array = {'CORSA CLASSIC', 'CARAVAN', 'CELTA LIFE', 'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE'}
+    array = {'CORSA CLASSIC', 'FIESTA HATCH', 'CARAVAN', 'CELTA LIFE',
+             'CELTA SPIRIT', 'VERANEIO', 'BLAZER', 'AGILE', 'MUSTANG', 'FIESTA SEDAN', 'FOCUS',
+             'KA', 'ESCORT SW', 'RANGER XL', 'ESCORT', 'BRAVO ESSENCE', 'STRADA ', 'VECTRA ELEGANCE 2008',
+             'CHEVETTE L', 'VECTRA ELITE', 'NEW FIESTA','PALIO WEEKEND','STILO','FIORINO','COBALT LTX',
+             'OMEGA GLS','S-10','P-306','CLIO AUTHENTIC','NISSAN SENTRA','VOYAGE','RANGER','RANGER XL',
+             'CLASSE A','JOURNEY','FUSCA'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -32,6 +22,8 @@ def regraModelo(data):
         return type
     else:
         return type
+
+
 
 
 def regraCor(data):
@@ -50,7 +42,8 @@ def regraCor(data):
 
 
 def regraCombustivel(data):
-    array = {'flex', 'alcool','gasolina'}
+    array = {'flex', 'alcool','gasolina','diesel','gvn'}
+    # add disel e GVN
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -66,6 +59,7 @@ def regraCombustivel(data):
 
 def regraDirecao(data):
     array = {'hidraulica', 'completo', 'competo','mecanica','mecam'}
+    # tentar melhorar comp*
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -90,6 +84,7 @@ def regraDirecao(data):
 
 def regraArcondicionado(data):
     array = {' ar ', 'arcondicionado', 'completo', 'competo'}
+    # add os outros
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -119,7 +114,7 @@ def regraCambio(data):
 
 
 def regraValor(data):
-    preco = re.compile('([R$].[,.0-9]+.[,.0-9]{2,6})')
+    preco = re.compile('([R$].[" "].[,.0-9]+.[,.0-9]{2,6})')
     valor = str(preco.findall(data))
     custo = valor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
     if custo == '':
@@ -128,32 +123,21 @@ def regraValor(data):
 
 
 def regraMotor(data):
-    # preco = re.compile('(\s+\d{1}[.]+\d{1}\s)')
-    array = {'1.0', '4.3', '1.4', '4.3'}
-    # array = {'prata', 'branca', 'branco' 'preto', 'azul'}
-    contador = 0
-    for i in array:
-        cont = re.search(i, str(data))
-        if cont is not None:
-            contador = 1
-            type = i
-    if contador == 0:
-        type = ''
-        return type
-    else:
-        return type
+    expressao = re.compile('(\s+\d{1}[.]+\d{1}\s)')
+    motor = str(expressao.findall(data))
+    motor = motor.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
+    return motor
 
 
 def regraAno(data):
     expressao = re.compile('[^R$]+[" "](\d{1}\d{1})')
+    # add 4 digitos
     ano = str(expressao.findall(data))
     ano = ano.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
-    if ano == '':
-        ano = ''
     return ano
 
 
-def regraModelo(data):
+def regraMarca(data):
     array = {'Chevrollet', 'Fiat', 'BMW','Ford'}
     contador = 0
     for i in array:
@@ -170,6 +154,7 @@ def regraModelo(data):
 
 def regraOpcionais(data):
     array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag'}
+    # adicionar variedades
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -212,7 +197,7 @@ def form(data):
 
 def removerAcentos(palavra):
 
-    # Unicode normalize transforma um caracter em seu equivalente em latin.
+
     nfkd = unicodedata.normalize('NFKD', palavra)
     palavraSemAcento = u"".join([c for c in nfkd if not unicodedata.combining(c)])
 
