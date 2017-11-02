@@ -21,19 +21,14 @@ for i, j in row_index_body:
 
         # print pagina.cell_value(rowx=int(i), colx=k)
         head = '' + pagina.cell_value(rowx=int(i), colx=k)+ ''+pagina.cell_value(rowx=int(i+1), colx=k)
-        # print head
-        # head = removerAcentos(head)
+        print head
+        head = removerAcentos(head)
         # print  k-1
-        # print '\n'+head
+        print '\n'+head
         print form(head)
 
 
-# arq = open('form.txt', 'w')
-# arq.write(head)
-# arq.close()
 
 
-
-# remail=re.compile('([_.0-9a-z-]+@[0-9a-z-]+.[a-z]{2,6})')
 
 
