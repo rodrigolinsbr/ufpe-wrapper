@@ -140,11 +140,13 @@ def regraMotor(data):
 
 
 def regraAno(data):
-    expressao = re.compile('[^R$]+[" "](\d{1}\d{1})')
+    expressao = re.compile('[^R$]+[" "](\d{1}\d{1}\d{1}\d{1})+[" "]')
+
     # add 4 digitos
     ano = str(expressao.findall(data))
-    if(ano==''):
-        expressao = re.compile('[^R$]+[" "](\d{1}\d{1}\d{1}\d{1})')
+
+    if(ano=='[]'):
+        expressao = re.compile('[^R$]+[" "](\d{1}\d{1})+[" "]')
         ano = str(expressao.findall(data))
 
     ano = ano.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
@@ -170,7 +172,7 @@ def regraOpcionais(data):
     array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag','imp.','som','vidro','trava','escap.',
              'ipva pago','motor feito','couro','roda liga','mp3',
              'revisado','2 dono','trava eletrica','sensor','4pts','4pt',
-             '2pts','4 portas','2 portas'}
+             '2pts','4 portas','2 portas','escap.'}
     # adicionar variedades
     contador = 0
     opc = ""
@@ -186,7 +188,7 @@ def regraOpcionais(data):
         return opc
 
 def regraKm(data):
-    expressao = re.compile('(\d{1}\d{1})[" "][km]')
+    expressao = re.compile('(\d{1}\d{1})[km]')
     km = str(expressao.findall(data))
     km = km.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
     if km == '':
