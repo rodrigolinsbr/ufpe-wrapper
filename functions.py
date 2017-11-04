@@ -10,7 +10,16 @@ def regraModelo(data):
              'KA', 'ESCORT SW', 'RANGER XL', 'ESCORT', 'BRAVO ESSENCE', 'STRADA ', 'VECTRA ELEGANCE 2008',
              'CHEVETTE L', 'VECTRA ELITE', 'NEW FIESTA','PALIO WEEKEND','STILO','FIORINO','COBALT LTX',
              'OMEGA GLS','S-10','P-306','CLIO AUTHENTIC','NISSAN SENTRA','VOYAGE','RANGER','RANGER XL',
-             'CLASSE A','JOURNEY','FUSCA'}
+             'CLASSE A','JOURNEY','RANGER XL','ESCORT','FIESTA','KA','FORD KA','NEW FIESTA HATCH',
+             'ECOSPORT','ECOSPORT','COURIER','FIESTA CLASS','KA SE','FOCUS HATCH','KA SEL','ECOSPORT SE',
+             'KA GL','DEL REY','ESCORT SW','COBALT LTX','OMEGA GLS','COURIER','FIESTA CLASS','S10',
+             'ONIX LT','ASTRA ADVANEGE','CELTA SPIRIT','VECTRA ELEGANCE','CHEVETTE L','VECTRA ELITE','UNO',
+             'S-10 KTZ','CLASSIC LS','ONIX','ONIX ACTIVE','MERIVA MAXX','PALIO FIRE ECONOMY','PUNTO','SIENA',
+             'FIORINO','PALIO FIRE','SPACEFOX','STRADA ADVENT','FIESTA SEDAN','GRAND SIENA','PALIO ESSENC',
+             'BRAVO ESSENCE','STRADA','PUNTO','PALIO FIRE','PALIO ELX','PALIO WEEKEEND','FOX HIGHLINE',
+             'FUSCA','UNO MILLE FIRE','STRADA WORK','UNO VIVACE','UNO FIRE','UNO CS','ONIX ACTIV','GOL',
+             'COBALT LTZ','COBALT LTX','VECTRA ELEGANCE','CELTA SPIRIT','ONIX ACTIVE','MERIVA','MERIVA MAXX',
+             ''}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -27,7 +36,8 @@ def regraModelo(data):
 
 
 def regraCor(data):
-    array = {'prata', 'branca', 'branco', 'preto', 'preta', 'azul'}
+    array = {'prata', 'branca', 'branco', 'preto', 'preta', 'azul',
+             'amarelo','vermelho','azul','vinho',''}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -58,7 +68,7 @@ def regraCombustivel(data):
 
 
 def regraDirecao(data):
-    array = {'hidraulica', 'completo', 'competo','mecanica','mecam'}
+    array = {'hidraulica', 'completo','dh', 'competo','mecanica','mecam'}
     # tentar melhorar comp*
     contador = 0
     for i in array:
@@ -133,6 +143,10 @@ def regraAno(data):
     expressao = re.compile('[^R$]+[" "](\d{1}\d{1})')
     # add 4 digitos
     ano = str(expressao.findall(data))
+    if(ano==''):
+        expressao = re.compile('[^R$]+[" "](\d{1}\d{1}\d{1}\d{1})')
+        ano = str(expressao.findall(data))
+
     ano = ano.replace("'", "").replace('[', '').replace(']', '').replace('u', '')
     return ano
 
@@ -153,14 +167,18 @@ def regraMarca(data):
 
 
 def regraOpcionais(data):
-    array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag'}
+    array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag','imp.','som','vidro','trava','escap.',
+             'ipva pago','motor feito','couro','roda liga','mp3',
+             'revisado','2 dono','trava eletrica','sensor','4pts','4pt',
+             '2pts','4 portas','2 portas'}
     # adicionar variedades
     contador = 0
+    opc = ""
     for i in array:
         cont = re.search(i, str(data))
         if cont is not None:
             contador = 1
-            opc = ''
+            opc = i+" "+opc
     if contador == 0:
         opc = ''
         return opc
@@ -202,4 +220,4 @@ def removerAcentos(palavra):
     palavraSemAcento = u"".join([c for c in nfkd if not unicodedata.combining(c)])
 
     # Usa expressão regular para retornar a palavra apenas com números, letras e espaço
-    return re.sub('[^a-zA-Z0-9$., \\\]', '', palavraSemAcento)
+    return re.sub('[^a-zA-Z0-9$., \\\]', ' ', palavraSemAcento)
