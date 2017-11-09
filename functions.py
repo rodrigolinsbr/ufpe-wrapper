@@ -154,7 +154,7 @@ def regraAno(data):
 
 
 def regraMarca(data):
-    array = {'Chevrollet', 'Fiat', 'BMW','Ford'}
+    array = {'Chevrollet', 'Fiat', 'BMW','Ford','Nissan'}
     contador = 0
     for i in array:
         cont = re.search(i, str(data))
@@ -172,7 +172,7 @@ def regraOpcionais(data):
     array = {'radio', 'CD', 'MP3 Player', 'alarme', 'airbag','imp.','som','vidro','trava','escap.',
              'ipva pago','motor feito','couro','roda liga','mp3',
              'revisado','2 dono','trava eletrica','sensor','4pts','4pt',
-             '2pts','4 portas','2 portas','escap.'}
+             '2pts','4 portas','2 portas','escap.','airbag', '4p'}
     # adicionar variedades
     contador = 0
     opc = ""
